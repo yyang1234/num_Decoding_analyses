@@ -1,0 +1,69 @@
+clear;
+
+subInd = {'02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '14', ...
+    '15', '16', '17', '18', '19', '20', '21', '22', '23'}; 
+load( ...
+    '/Users/yiyang/DATA/numMVPA_fmriprep/outputs/derivatives/rsa_mreyenew/corrMatDTD_new.mat');
+
+greenC = [69, 179, 157] / 255;
+blueC = [93, 173, 226] / 255;
+orangeC = [220, 118, 51] / 255;
+colors = [greenC; greenC; greenC; greenC; ...
+    blueC; blueC; blueC; blueC; ...
+    orangeC; orangeC; orangeC; orangeC];
+maskLabel = {'LhIP4', 'LhIP8', ...
+    'LV3A', 'Rprecentral', 'RhIP2', ...
+    'RhIP3', 'RhIP4'};
+
+for iROI = [2, 3, 5, 6, 7, 8, 9]
+    Mat_ROI = corrMat(iROI, :);
+    avg_mat_roi = mean(1-cell2mat(Mat_ROI(:)'), 2);
+    dsm_avg_mat_roi = squareform(avg_mat_roi);
+    [Y, eigvals] = cmdscale(dsm_avg_mat_roi);
+
+    figure()
+    p = plot( ...
+        Y(1, 1), Y(1, 2), 'o', ...
+        Y(2, 1), Y(2, 2), 'o', ...
+        Y(3, 1), Y(3, 2), 'o', ...
+        Y(4, 1), Y(4, 2), 'o', ...
+        Y(5, 1), Y(5, 2), 'x', ...
+        Y(6, 1), Y(6, 2), 'x', ...
+        Y(7, 1), Y(7, 2), 'x', ...
+        Y(8, 1), Y(8, 2), 'x', ...
+        Y(9, 1), Y(9, 2), '^', ...
+        Y(10, 1), Y(10, 2), '^', ...
+        Y(11, 1), Y(11, 2), '^', ...
+        Y(12, 1), Y(12, 2), '^', ...
+        'LineWidth', 3, Color = [0, 0, 0]);
+    %text(Y(:,1),Y(:,2),labels)
+
+    p(1).MarkerSize = 32;
+    p(2).MarkerSize = 36;
+    p(3).MarkerSize = 40;
+    p(4).MarkerSize = 44;
+    p(5).MarkerSize = 32;
+    p(6).MarkerSize = 36;
+    p(7).MarkerSize = 40;
+    p(8).MarkerSize = 44;
+    p(9).MarkerSize = 32;
+    p(10).MarkerSize = 36;
+    p(11).MarkerSize = 40;
+    p(12).MarkerSize = 44;
+    set(gca, 'box', 'off')
+    ylim([-0.4, 0.5]);
+    xlim([-0.6, 0.6]);
+    h = gca;
+    set(gca, 'XTick', [], 'YTick', [])
+    % add arrow
+    Xc = [0.13, 0.13];
+    Yc = [0.11, 0.95];
+    annotation('arrow', Xc, Yc, 'LineWidth', 5);
+    X1 = [0.125, 0.92];
+    Y1 = [0.11, 0.11];
+    annotation('arrow', X1, Y1, 'LineWidth', 5);
+    exportgraphics(gca, ...
+        ['/Users/yiyang/DATA/numMVPA_bids/code/mvpa/rsa/final_figure/mds/final_', maskLabel{iROI}, '_dsm.png'], ...
+        'Resolution', 300)
+
+end

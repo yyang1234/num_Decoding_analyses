@@ -1,0 +1,118 @@
+{
+  "Name": "eyeMovementsGLM_numMVPA_model_unicontrast",
+  "BIDSModelVersion": "1.0.0",
+  "Description": "default BIDS stats model for numMVPA task",
+  "Input": {
+    "task": [
+      "numMVPA"
+    ],
+    "space":[
+      "MNI152NLin2009cAsym"
+  ]
+  },
+  "Nodes": [
+    {
+      "Level": "Run",
+      "Name": "eyeMovementsGLM",
+      "GroupBy": [
+        "run",
+        "session",
+        "subject"
+      ],
+      "Model": {
+        "X": [
+          "trial_type.2aud_num",
+          "trial_type.2aud_seq",
+          "trial_type.2vis_num",
+          "trial_type.2vis_seq",
+          "trial_type.2vis_sim",
+          "trial_type.3aud_num",
+          "trial_type.3aud_seq",
+          "trial_type.3vis_num",
+          "trial_type.3vis_seq",
+          "trial_type.3vis_sim",
+          "trial_type.4aud_num",
+          "trial_type.4aud_seq",
+          "trial_type.4vis_num",
+          "trial_type.4vis_seq",
+          "trial_type.4vis_sim",
+          "trial_type.5aud_num",
+          "trial_type.5aud_seq",
+          "trial_type.5vis_num",
+          "trial_type.5vis_seq",
+          "trial_type.5vis_sim",
+          "trial_type.response",
+          "trans_?",
+          "rot_?",
+          "*outlier*",
+          "displacement"
+        ],
+        "Type": "glm",
+        "HRF": {
+          "Variables": [
+            "trial_type.2aud_num",
+            "trial_type.2aud_seq",
+            "trial_type.2vis_num",
+            "trial_type.2vis_seq",
+            "trial_type.2vis_sim",
+            "trial_type.3aud_num",
+            "trial_type.3aud_seq",
+            "trial_type.3vis_num",
+            "trial_type.3vis_seq",
+            "trial_type.3vis_sim",
+            "trial_type.4aud_num",
+            "trial_type.4aud_seq",
+            "trial_type.4vis_num",
+            "trial_type.4vis_seq",
+            "trial_type.4vis_sim",
+            "trial_type.5aud_num",
+            "trial_type.5aud_seq",
+            "trial_type.5vis_num",
+            "trial_type.5vis_seq",
+            "trial_type.5vis_sim",
+            "trial_type.response"
+          ],
+          "Model": "spm"
+        },
+        "Options": {
+          "HighPassFilterCutoffHz": 0.0078,
+          "Mask": {
+            "desc": ["brain"],
+            "suffix": ["mask"]
+          }
+        },
+        "Software": {
+          "SPM": {
+            "SerialCorrelation": "FAST",
+            "InclusiveMaskingThreshold": 0.1
+          }
+        }
+      },
+      "DummyContrasts": {
+        "Test": "t",
+        "Contrasts": [
+          "trial_type.2aud_num",
+          "trial_type.2aud_seq",
+          "trial_type.2vis_num",
+          "trial_type.2vis_seq",
+          "trial_type.2vis_sim",
+          "trial_type.3aud_num",
+          "trial_type.3aud_seq",
+          "trial_type.3vis_num",
+          "trial_type.3vis_seq",
+          "trial_type.3vis_sim",
+          "trial_type.4aud_num",
+          "trial_type.4aud_seq",
+          "trial_type.4vis_num",
+          "trial_type.4vis_seq",
+          "trial_type.4vis_sim",
+          "trial_type.5aud_num",
+          "trial_type.5aud_seq",
+          "trial_type.5vis_num",
+          "trial_type.5vis_seq",
+          "trial_type.5vis_sim"
+        ]
+      }
+    }
+  ]
+}
